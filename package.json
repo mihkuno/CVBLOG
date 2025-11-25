@@ -13,7 +13,7 @@
 		"prepare": "svelte-kit sync && npx patch-package || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"postinstall": "npx patch-package"
+		"postinstall": "patch-package" 
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.0",
@@ -21,7 +21,6 @@
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.17",
-		"patch-package": "^8.0.1",
 		"svelte": "^5.43.8",
 		"svelte-check": "^4.3.4",
 		"tailwindcss": "^4.1.17",
@@ -29,6 +28,7 @@
 		"vite": "^7.2.2"
 	},
 	"dependencies": {
+		"patch-package": "^8.0.1",
 		"@tensorflow/tfjs": "^4.22.0",
 		"@tensorflow/tfjs-backend-webgl": "^4.22.0",
 		"chart.js": "^4.5.1",
