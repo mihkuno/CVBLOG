@@ -537,32 +537,38 @@
 
 			<div class="space-y-8">
 				<!-- Question 1 -->
-				<div class="bg-slate-900/30 border-l-2 border-blue-500 pl-6 py-2">
-					<h3 class="text-lg font-bold text-white mb-2">What did you observe when changing the parameter?</h3>
-					<p class="text-slate-300 leading-relaxed">
-						When reducing the batch size (e.g., to 32 or 16), I observed that the loss curve became significantly more "jagged" or noisy. The model updates were frequent, causing the loss to fluctuate wildly. Conversely, increasing the batch size (e.g., to 128) resulted in a very smooth, monotonic decrease in loss, but each epoch took longer to process in a real-world scenario.
-					</p>
-				</div>
+<div class="bg-slate-900/30 border-l-2 border-blue-500 pl-6 py-2">
+    <h3 class="text-lg font-bold text-white mb-2">What did you observe when changing the parameter?</h3>
+    <p class="text-slate-300 leading-relaxed">
+        Using very small batch sizes (e.g., 2, 4, or 8) produced somewhat jagged loss curves, but the frequent updates helped the model generalize well for this small dataset. A batch size of 16 may still work, though the loss becomes slightly smoother. Batch sizes larger than 16 led to very smooth updates and faster per-epoch processing, but this caused overfitting because the dataset is small and simple. Moreover, when the number of epochs was set to the maximum, very large batch sizes took a long time for the loss curve to straighten out, as the model struggled to fully converge due to the lack of stochasticity in the updates. Small batch sizes, in contrast, allowed the loss to stabilize more quickly.
+    </p>
+</div>
 
-				<!-- Question 2 -->
-				<div class="bg-slate-900/30 border-l-2 border-emerald-500 pl-6 py-2">
-					<h3 class="text-lg font-bold text-white mb-2">Did it improve performance or stability?</h3>
-					<p class="text-slate-300 leading-relaxed">
-						It is a trade-off. Large batch sizes improved <strong>stability</strong> significantly; the gradient direction was consistent. However, small batch sizes often improved <strong>final performance</strong> (generalization). The instability seen in small batches actually prevented the model from overfitting to the training data, leading to higher validation accuracy in the long run.
-					</p>
-				</div>
 
-				<!-- Question 3 -->
-				<div class="bg-slate-900/30 border-l-2 border-purple-500 pl-6 py-2">
-					<h3 class="text-lg font-bold text-white mb-2">What insights can you draw for future model tuning?</h3>
-					<p class="text-slate-300 leading-relaxed">
-						For future tuning, I will treat Batch Size not just as a speed parameter, but as a regularization hyperparameter. 
-						<br/><br/>
-						1. <strong>Start Moderate:</strong> Begin with 32 or 64. <br/>
-						2. <strong>If Overfitting:</strong> Try reducing the batch size to introduce noise. <br/>
-						3. <strong>If Unstable:</strong> If the loss diverges, increase the batch size or lower the learning rate.
-					</p>
-				</div>
+<!-- Question 2 -->
+<div class="bg-slate-900/30 border-l-2 border-emerald-500 pl-6 py-2">
+    <h3 class="text-lg font-bold text-white mb-2">Did it improve performance or stability?</h3>
+    <p class="text-slate-300 leading-relaxed">
+        It is a trade-off between <strong>stability</strong> and <strong>generalization</strong>. Large batch sizes (e.g., >16) produced very smooth loss curves and consistent gradient directions, improving the stability of training. This made the optimization predictable, but often led to overfitting, especially on small or simple datasets. Small batch sizes (2–8) introduced stochasticity in the gradient updates, causing jagged or noisy loss curves. While this seemed less stable initially, it actually helped the model explore the loss landscape more effectively, avoid local minima, and ultimately improved <strong>final performance</strong> on validation data. In other words, the instability in small batches acted as a form of implicit regularization, preventing the model from memorizing the training data.
+    </p>
+</div>
+
+<!-- Question 3 -->
+<div class="bg-slate-900/30 border-l-2 border-purple-500 pl-6 py-2">
+    <h3 class="text-lg font-bold text-white mb-2">What insights can you draw for future model tuning?</h3>
+    <p class="text-slate-300 leading-relaxed">
+        Batch size should not be treated solely as a speed or computational parameter, but also as a crucial <strong>regularization hyperparameter</strong>. Small batches introduce noise that helps generalization, whereas large batches make training more stable but risk overfitting. For future tuning:
+        <br/><br/>
+        1. <strong>Start Small or Moderate:</strong> For small datasets, begin with batch sizes of 2, 4, or 8 to balance performance and stability. For slightly larger datasets, 16 may work, but avoid excessively large batches.
+        <br/>
+        2. <strong>Monitor Overfitting:</strong> If validation performance lags behind training performance, reduce the batch size to inject more stochasticity and prevent memorization.
+        <br/>
+        3. <strong>Handle Instability:</strong> If the loss curve is too noisy or diverges, consider increasing the batch size moderately or lowering the learning rate to stabilize updates.
+        <br/>
+        4. <strong>Use in Conjunction with Epochs:</strong> Very large batches may take many epochs to fully converge, so always consider the interaction between batch size and the total number of epochs when planning training schedules.
+    </p>
+</div>
+
 
 				<!-- Data Table -->
 				<div class="overflow-x-auto rounded-xl border border-slate-800 mt-10 shadow-xl">
