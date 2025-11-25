@@ -84,18 +84,33 @@
     };
   };
 
+  // Load ml5 and tfjs from CDN
   onMount(async () => {
     if (!browser) return;
-    const ml5Module = await import('ml5');
-    ml5 = ml5Module.default || ml5Module;
 
-    // Access tfjs from ml5
-    tf = ml5.tf; // tfjs is exposed via ml5.tf
+    // Load TensorFlow.js first
+    await new Promise((resolve) => {
+      const tfScript = document.createElement('script');
+      tfScript.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.12.0/dist/tf.min.js';
+      tfScript.onload = resolve;
+      document.head.appendChild(tfScript);
+    });
 
-    // Ensure tf is ready and force CPU backend to avoid WebGPU issues
+    tf = window.tf;
     await tf.setBackend('cpu');
     await tf.ready();
     console.log('TensorFlow.js ready on CPU backend');
+
+    // Load ml5.js
+    await new Promise((resolve) => {
+      const ml5Script = document.createElement('script');
+      ml5Script.src = 'https://cdn.jsdelivr.net/npm/ml5@1.3.0/dist/ml5.min.js';
+      ml5Script.onload = resolve;
+      document.head.appendChild(ml5Script);
+    });
+
+    ml5 = window.ml5;
+    console.log('ml5.js loaded:', ml5);
   });
 
   // Helper: Parse raw CSV rows to ml5 object format (unchanged)
