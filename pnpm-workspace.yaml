@@ -1,3 +1,6 @@
+ignoredBuiltDependencies:
+  - core-js
+  - preact
 onlyBuiltDependencies:
   - core-js
   - esbuild
