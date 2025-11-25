@@ -1,3 +1,7 @@
+<img width="1453" height="937" alt="image" src="https://github.com/user-attachments/assets/80424c40-13a4-4756-a08a-26b81c90b0de" />
+<img width="1459" height="929" alt="image" src="https://github.com/user-attachments/assets/09c906c6-f3ce-4a79-85bc-cdee5a2ca7f3" />
+
+
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
